@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  age: 1
+  age_measurement_unit: MyText
+  image: MyText
+  adopted: false
+  description: MyText
+  published_date: 2017-09-18
+  contact_phone: 1
+  contact_email: MyText
+
+two:
+  name: MyText
+  age: 1
+  age_measurement_unit: MyText
+  image: MyText
+  adopted: false
+  description: MyText
+  published_date: 2017-09-18
+  contact_phone: 1
+  contact_email: MyText
