@@ -9,6 +9,11 @@ class AdoptionUploader < CarrierWave::Uploader::Base
   #storage :file
   
   storage :fog
+  
+  # I did this to return the url in my image attribute, and not get it nested
+  def serializable_hash
+    model.image = url
+  end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
