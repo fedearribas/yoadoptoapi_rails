@@ -21,3 +21,4 @@
 #  contact_phone: 155117310,
 #  contact_email: "test@test.com"
 # )
+User.create!(email: 'admin@test.com', nickname: 'admin', name: 'Admin', password: "fede1234")
