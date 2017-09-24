@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
          :validatable, 
          :omniauthable
   include DeviseTokenAuth::Concerns::User
+   has_many :adoptions
 end
