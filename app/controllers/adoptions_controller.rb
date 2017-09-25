@@ -1,5 +1,6 @@
 class AdoptionsController < ApplicationController
   before_action :set_adoption, only: [:show, :update, :destroy]
+  before_action :set_user, except: [:index]
 
   # GET /adoptions
   def index
@@ -16,7 +17,8 @@ class AdoptionsController < ApplicationController
   # POST /adoptions
   def create
     #@adoption = Adoption.new(adoption_params)
-    @adoption = Adoption.new(convert_data_uri_to_upload(adoption_params))
+     @adoption = @user.adoptions.new(convert_data_uri_to_upload(adoption_params))
+    #@adoption = Adoption.new(convert_data_uri_to_upload(adoption_params))
 
     if @adoption.save
       render json: @adoption, status: :created, location: @adoption
@@ -44,10 +46,24 @@ class AdoptionsController < ApplicationController
     def set_adoption
       @adoption = Adoption.find(params[:id])
     end
+    
+    #Set the current user who is posting the adoption
+    def set_user
+      @user = User.find(params[:user][:id])
+    end
 
     # Only allow a trusted parameter "white list" through.
     def adoption_params
-      params.require(:adoption).permit(:name, :age, :age_measurement_unit, :image, :adopted, :description, :published_date, :contact_phone, :contact_email)
+      params.require(:adoption).permit(:name, 
+                                      :age, 
+                                      :age_measurement_unit, 
+                                      :image, 
+                                      :adopted, 
+                                      :description, 
+                                      :published_date, 
+                                      :contact_phone, 
+                                      :contact_email, 
+                                      user: [:id])
     end
     
     #Image Upload and decoding base64
