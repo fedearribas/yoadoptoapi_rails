@@ -1,6 +1,6 @@
 class AdoptionsController < ApplicationController
   before_action :set_adoption, only: [:show, :update, :destroy]
-  before_action :set_user, except: [:index]
+  before_action :set_user, only: [:create]
 
   # GET /adoptions
   def index
