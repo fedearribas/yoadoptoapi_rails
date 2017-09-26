@@ -1,10 +1,10 @@
 class AdoptionsController < ApplicationController
   before_action :set_adoption, only: [:show, :update, :destroy]
-  before_action :set_user, only: [:create]
+  before_action :set_user, only: [:create, :update]
 
   # GET /adoptions
   def index
-    @adoptions = Adoption.all
+    @adoptions = Adoption.all.order('created_at DESC')
 
     render json: @adoptions
   end
@@ -16,9 +16,8 @@ class AdoptionsController < ApplicationController
 
   # POST /adoptions
   def create
-    #@adoption = Adoption.new(adoption_params)
+    #Guardo la publicacion asociandola al usuario
      @adoption = @user.adoptions.new(convert_data_uri_to_upload(adoption_params))
-    #@adoption = Adoption.new(convert_data_uri_to_upload(adoption_params))
 
     if @adoption.save
       render json: @adoption, status: :created, location: @adoption
@@ -29,10 +28,16 @@ class AdoptionsController < ApplicationController
 
   # PATCH/PUT /adoptions/1
   def update
-    if @adoption.update(adoption_params)
-      render json: @adoption
+    #Obtengo desde el header el usuario que intenta modificar, y solo se permite si es el mismo 
+    current_user_id = request.headers["CURRENTUSERID"].to_i
+    if current_user_id == @user.id 
+      if @adoption.update(convert_data_uri_to_upload(adoption_params))
+        render json: @adoption
+      else
+        render json: @adoption.errors, status: :unprocessable_entity
+      end
     else
-      render json: @adoption.errors, status: :unprocessable_entity
+      render json: "No tiene permisos para editar esta publicación.", status: :unprocessable_entity
     end
   end
 
