@@ -11,6 +11,7 @@ class AdoptionSerializer < ActiveModel::Serializer
     :contact_email,
     :created_at
   belongs_to :user
+  has_many :comments
 end
 
 

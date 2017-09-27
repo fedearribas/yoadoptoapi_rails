@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: MyString
+  adoption: one
+  user: one
+
+two:
+  message: MyString
+  adoption: two
+  user: two
