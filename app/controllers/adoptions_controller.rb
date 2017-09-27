@@ -29,8 +29,8 @@ class AdoptionsController < ApplicationController
   # PATCH/PUT /adoptions/1
   def update
     #Obtengo desde el header el usuario que intenta modificar, y solo se permite si es el mismo 
-    current_user_id = request.headers["CURRENTUSERID"].to_i
-    if current_user_id == @user.id 
+    @current_user = User.find(request.headers["CURRENTUSERID"].to_i)
+    if @current_user.id == @user.id || @current_user.admin
       if @adoption.update(convert_data_uri_to_upload(adoption_params))
         render json: @adoption
       else
