@@ -3,4 +3,5 @@ class Adoption < ApplicationRecord
     mount_base64_uploader :image, AdoptionUploader
     belongs_to :user
     has_many :comments
+    accepts_nested_attributes_for :comments
 end
