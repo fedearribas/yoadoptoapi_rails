@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
          :omniauthable
   include DeviseTokenAuth::Concerns::User
    has_many :adoptions
+   has_many :marked_adoptions
 end

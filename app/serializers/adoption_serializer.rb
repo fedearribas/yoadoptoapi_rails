@@ -9,9 +9,11 @@ class AdoptionSerializer < ActiveModel::Serializer
     :published_date,
     :contact_phone,
     :contact_email,
-    :created_at
+    :created_at,
+    :marked_adoptions
   belongs_to :user
   has_many :comments
+    has_many :marked_adoptions
 end
 
 
