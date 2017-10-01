@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   end
   
   def get_by_adoption_id
-    @comments = Comment.where(adoption_id: params[:adoption_id])
+    @comments = Comment.where(adoption_id: params[:adoption_id]).order('created_at ASC')
     render json: @comments
   end
 
