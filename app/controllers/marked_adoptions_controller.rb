@@ -18,6 +18,11 @@ class MarkedAdoptionsController < ApplicationController
     @marked_adoptions = MarkedAdoption.where(user_id: params[:user_id]).order('created_at DESC')
     render json: @marked_adoptions
   end
+  
+  def get_by_user_id_and_adoption_id
+    @marked_adoption = MarkedAdoption.where(user_id: params[:user_id], adoption_id: params[:adoption_id]).first()
+     render json: @marked_adoption
+  end
 
   # POST /marked_adoptions
   def create

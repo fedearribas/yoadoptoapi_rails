@@ -1,5 +1,5 @@
 class MarkedAdoptionSerializer < ActiveModel::Serializer
-  attributes :id, :adoption, :user
+  attributes :id
   belongs_to :user
   belongs_to :adoption
 end

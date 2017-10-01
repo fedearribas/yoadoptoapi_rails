@@ -12,12 +12,16 @@ class CommentsController < ApplicationController
   def show
     render json: @comment
   end
+  
+  def get_by_adoption_id
+    @comments = Comment.where(adoption_id: params[:adoption_id])
+    render json: @comments
+  end
+
 
   # POST /comments
   def create
-    @adoption = Adoption.find(params[:adoption_id])
-    @comment = @adoption.comments.new(comment_params)
-    @comment.user_id = params[:user_id]
+    @comment = Comment.new(comment_params)
     
     if @comment.save
       render json: @comment, status: :created, location: @comment
