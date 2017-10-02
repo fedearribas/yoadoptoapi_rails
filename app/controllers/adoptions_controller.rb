@@ -68,6 +68,7 @@ class AdoptionsController < ApplicationController
                                       :published_date, 
                                       :contact_phone, 
                                       :contact_email, 
+                                      :location,
                                       user: [:id])
     end
     

@@ -7,6 +7,7 @@ class AdoptionSerializer < ActiveModel::Serializer
     :adopted,
     :description,
     :published_date,
+    :location,
     :contact_phone,
     :contact_email,
     :created_at
