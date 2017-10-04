@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   
   mount_devise_token_auth_for 'User', at: 'auth'
   resources :adoptions
+    get '/adoptions/type/:publication_type', to: 'adoptions#get_adoptions_by_type'
+    #get '/adoptions/type/missing', to: 'adoptions#get_missing'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

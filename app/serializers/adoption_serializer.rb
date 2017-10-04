@@ -11,7 +11,7 @@ class AdoptionSerializer < ActiveModel::Serializer
     :contact_phone,
     :contact_email,
     :created_at,
-    :type,
+    :publication_type,
     :found,
     :delivered
   belongs_to :user

@@ -8,6 +8,12 @@ class AdoptionsController < ApplicationController
 
     render json: @adoptions
   end
+  
+  def get_adoptions_by_type
+    @adoptions = Adoption.where(publication_type: params[:publication_type]).order('created_at DESC')
+    render json: @adoptions
+  end
+
 
   # GET /adoptions/1
   def show
@@ -69,6 +75,9 @@ class AdoptionsController < ApplicationController
                                       :contact_phone, 
                                       :contact_email, 
                                       :location,
+                                      :publication_type,
+                                      :found,
+                                      :delivered,
                                       user: [:id])
     end
     
