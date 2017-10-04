@@ -97,7 +97,7 @@ class AdoptionsController < ApplicationController
 		    temp_img_file << image_data_binary
 		    temp_img_file.rewind
 
-		    img_params = {:filename => "#{obj_hash[:name]}_image.#{image_data[:extension]}", :type => image_data[:type], :tempfile => temp_img_file}
+		    img_params = {:filename => "#{obj_hash[:name]}_image_#{Time.now.to_i}.#{image_data[:extension]}", :type => image_data[:type], :tempfile => temp_img_file}
 		    uploaded_file = ActionDispatch::Http::UploadedFile.new(img_params)
 		    obj_hash.delete(:image)
 		    obj_hash[:image] = uploaded_file
