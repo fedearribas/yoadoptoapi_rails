@@ -46,3 +46,23 @@ DeviseTokenAuth.setup do |config|
   # do so by enabling this flag. NOTE: This feature is highly experimental!
   # config.enable_standard_devise_support = false
 end
+
+
+
+#Redefino set_flash_message de Devise para que no pinche al cancelar login de facebook
+Rails.application.config.to_prepare do
+  Devise::DeviseController.class_eval do
+    def set_flash_message(key, kind, options = {})
+      nil
+    end
+  end
+end
+
+#Redefino cuando falla el login de facebook para que redireccione al login del sitio
+Rails.application.config.to_prepare do
+  Devise::OmniauthCallbacksController.class_eval do
+    def failure
+      redirect_to ENV['SITE_URL_LOGIN']
+    end
+  end
+end
