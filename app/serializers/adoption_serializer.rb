@@ -10,7 +10,10 @@ class AdoptionSerializer < ActiveModel::Serializer
     :location,
     :contact_phone,
     :contact_email,
-    :created_at
+    :created_at,
+    :type,
+    :found,
+    :delivered
   belongs_to :user
 end
 
