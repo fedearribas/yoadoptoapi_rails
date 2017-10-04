@@ -33,7 +33,7 @@ DeviseTokenAuth.setup do |config|
   # By default we will use callbacks for single omniauth.
   # It depends on fields like email, provider and uid.
   # config.default_callbacks = true
-
+  #config.parent_controller = 'ActionController::Base'
   # Makes it possible to change the headers names
   # config.headers_names = {:'access-token' => 'access-token',
   #                        :'client' => 'client',

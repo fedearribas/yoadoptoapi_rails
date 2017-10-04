@@ -45,6 +45,7 @@ end
   gem 'dotenv-rails'
   gem 'devise_token_auth'
   gem 'omniauth'
+  gem 'omniauth-facebook'
   gem 'active_model_serializers'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
