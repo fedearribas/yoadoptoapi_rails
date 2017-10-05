@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :marked_adoptions
-  get '/marked_adoptions/user/:user_id', to: 'marked_adoptions#get_by_user_id'
+  get '/marked_adoptions/user/:user_id/type/:publication_type', to: 'marked_adoptions#get_by_user_id_and_publication_type'
   get '/marked_adoptions/user/:user_id/:adoption_id', to: 'marked_adoptions#get_by_user_id_and_adoption_id'
   
   resources :comments

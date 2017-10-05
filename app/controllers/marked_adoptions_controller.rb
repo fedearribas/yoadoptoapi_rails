@@ -14,8 +14,8 @@ class MarkedAdoptionsController < ApplicationController
   end
   
   #GET /marked_adoptions/user/1
-  def get_by_user_id
-    @marked_adoptions = MarkedAdoption.where(user_id: params[:user_id]).order('created_at DESC')
+  def get_by_user_id_and_publication_type
+    @marked_adoptions = MarkedAdoption.where(user_id: params[:user_id], publication_type: params[:publication_type]).order('created_at DESC')
     render json: @marked_adoptions
   end
   
@@ -57,6 +57,6 @@ class MarkedAdoptionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def marked_adoption_params
-      params.require(:marked_adoption).permit(:adoption_id, :user_id)
+      params.require(:marked_adoption).permit(:adoption_id, :user_id, :publication_type)
     end
 end
