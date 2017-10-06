@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  resources :marked_adoptions
-  get '/marked_adoptions/user/:user_id/type/:publication_type', to: 'marked_adoptions#get_by_user_id_and_publication_type'
-  get '/marked_adoptions/user/:user_id/:adoption_id', to: 'marked_adoptions#get_by_user_id_and_adoption_id'
+  resources :marked_publications
+  get '/marked_publications/user/:user_id/type/:publication_type', to: 'marked_publications#get_by_user_id_and_publication_type'
+  get '/marked_publications/user/:user_id/:publication_id', to: 'marked_publications#get_by_user_id_and_publication_id'
   
   resources :comments
-  get '/comments/adoption/:adoption_id', to: 'comments#get_by_adoption_id'
+  get '/comments/publication/:publication_id', to: 'comments#get_by_publication_id'
   
   mount_devise_token_auth_for 'User', at: 'auth'
-  resources :adoptions
-    get '/adoptions/type/:publication_type', to: 'adoptions#get_adoptions_by_type'
+  resources :publications
+    get '/publications/type/:publication_type', to: 'publications#get_publications_by_type'
     #get '/adoptions/type/missing', to: 'adoptions#get_missing'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

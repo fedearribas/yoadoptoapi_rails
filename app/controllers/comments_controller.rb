@@ -13,8 +13,8 @@ class CommentsController < ApplicationController
     render json: @comment
   end
   
-  def get_by_adoption_id
-    @comments = Comment.where(adoption_id: params[:adoption_id]).order('created_at ASC')
+  def get_by_publication_id
+    @comments = Comment.where(publication_id: params[:publication_id]).order('created_at ASC')
     render json: @comments
   end
 
@@ -52,6 +52,6 @@ class CommentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:message, :adoption_id, :user_id)
+      params.require(:comment).permit(:message, :publication_id, :user_id)
     end
 end

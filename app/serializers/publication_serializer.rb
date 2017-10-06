@@ -1,4 +1,4 @@
-class AdoptionSerializer < ActiveModel::Serializer
+class PublicationSerializer < ActiveModel::Serializer
   attributes :id, 
     :name,
     :age,

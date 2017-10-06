@@ -1,71 +1,71 @@
-class AdoptionsController < ApplicationController
-  before_action :set_adoption, only: [:show, :update, :destroy]
+class PublicationsController < ApplicationController
+  before_action :set_publication, only: [:show, :update, :destroy]
   before_action :set_user, only: [:create, :update]
 
-  # GET /adoptions
+  # GET /publications
   def index
-    @adoptions = Adoption.all.order('created_at DESC')
+    @publications = Publication.all.order('created_at DESC')
 
-    render json: @adoptions
+    render json: @publications
   end
   
-  def get_adoptions_by_type
-    @adoptions = Adoption.where(publication_type: params[:publication_type]).order('created_at DESC')
-    render json: @adoptions
+  def get_publications_by_type
+    @publications = Publication.where(publication_type: params[:publication_type]).order('created_at DESC')
+    render json: @publications
   end
 
 
-  # GET /adoptions/1
+  # GET /publications/1
   def show
-    render json: @adoption
+    render json: @publication
   end
 
-  # POST /adoptions
+  # POST /publications
   def create
     #Guardo la publicacion asociandola al usuario
-     @adoption = @user.adoptions.new(convert_data_uri_to_upload(adoption_params))
+     @publication = @user.publications.new(convert_data_uri_to_upload(publication_params))
 
-    if @adoption.save
-      render json: @adoption, status: :created, location: @adoption
+    if @publication.save
+      render json: @publication, status: :created, location: @publication
     else
-      render json: @adoption.errors, status: :unprocessable_entity
+      render json: @publication.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /adoptions/1
+  # PATCH/PUT /publications/1
   def update
     #Obtengo desde el header el usuario que intenta modificar, y solo se permite si es el mismo 
     @current_user = User.find(request.headers["CURRENTUSERID"].to_i)
     if @current_user.id == @user.id || @current_user.admin
-      if @adoption.update(convert_data_uri_to_upload(adoption_params))
-        render json: @adoption
+      if @publication.update(convert_data_uri_to_upload(publication_params))
+        render json: @publication
       else
-        render json: @adoption.errors, status: :unprocessable_entity
+        render json: @publication.errors, status: :unprocessable_entity
       end
     else
       render json: "No tiene permisos para editar esta publicación.", status: :unprocessable_entity
     end
   end
 
-  # DELETE /adoptions/1
+  # DELETE /publications/1
   def destroy
-    @adoption.destroy
+    @publication.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_adoption
-      @adoption = Adoption.find(params[:id])
+    def set_publication
+      @publication = Publication.find(params[:id])
     end
     
-    #Set the current user who is posting the adoption
+    #Set the current user who is posting the publication
     def set_user
       @user = User.find(params[:user][:id])
     end
 
     # Only allow a trusted parameter "white list" through.
-    def adoption_params
-      params.require(:adoption).permit(:name, 
+    def publication_params
+      params.require(:publication).permit(:name, 
                                       :age, 
                                       :age_measurement_unit, 
                                       :image, 

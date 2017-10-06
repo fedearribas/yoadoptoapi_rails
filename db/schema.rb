@@ -10,12 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005231524) do
+ActiveRecord::Schema.define(version: 20171006134214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "adoptions", force: :cascade do |t|
+  create_table "comments", force: :cascade do |t|
+    t.string "message"
+    t.bigint "publication_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["publication_id"], name: "index_comments_on_publication_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "marked_publications", force: :cascade do |t|
+    t.integer "publication_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "publication_type"
+  end
+
+  create_table "publications", force: :cascade do |t|
     t.text "name"
     t.integer "age"
     t.text "age_measurement_unit"
@@ -32,25 +50,7 @@ ActiveRecord::Schema.define(version: 20171005231524) do
     t.string "publication_type"
     t.boolean "found"
     t.boolean "delivered"
-    t.index ["user_id"], name: "index_adoptions_on_user_id"
-  end
-
-  create_table "comments", force: :cascade do |t|
-    t.string "message"
-    t.bigint "adoption_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["adoption_id"], name: "index_comments_on_adoption_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "marked_adoptions", force: :cascade do |t|
-    t.integer "adoption_id"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "publication_type"
+    t.index ["user_id"], name: "index_publications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20171005231524) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "adoptions", "users"
-  add_foreign_key "comments", "adoptions"
+  add_foreign_key "comments", "publications"
   add_foreign_key "comments", "users"
+  add_foreign_key "publications", "users"
 end
