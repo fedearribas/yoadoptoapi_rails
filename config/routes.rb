@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   resources :comments
   get '/comments/publication/:publication_id', to: 'comments#get_by_publication_id'
   
-  mount_devise_token_auth_for 'User', at: 'auth'
+  mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+    omniauth_callbacks:  'overrides/omniauth_callbacks',
+    registrations: 'overrides/registrations'
+  }
   resources :publications
     get '/publications/type/:publication_type', to: 'publications#get_publications_by_type'
     #get '/adoptions/type/missing', to: 'adoptions#get_missing'
